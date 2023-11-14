@@ -95,6 +95,9 @@ void read_input_file(vector<string>& v) {
 
         v.push_back(input_line);
     }
+
+    // remove empty string element added by last getline()
+    v.pop_back();
 }
 
 //------------------------------------------------------------------------------
