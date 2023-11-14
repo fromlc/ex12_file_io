@@ -95,8 +95,10 @@ void read_input_file(vector<string>& v) {
 
 //------------------------------------------------------------------------------
 // -display each element of passed vector, last index first
-// -removes elements from passed vector!
-// #TODO use call by value to prevent losing data
+// #TODO this function removes elements from passed vector!
+// #TODO prevent losing data
+//      either use call by value (VERY inefficient), OR
+//      use v.at(i) starting with i at highest index of v 
 //------------------------------------------------------------------------------
 void display_file_data(vector<string>& v) {
 
