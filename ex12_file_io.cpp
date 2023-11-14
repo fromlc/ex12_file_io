@@ -1,8 +1,11 @@
 //------------------------------------------------------------------------------
 // ex12_file_io.cpp
 //
-// Read from text file into vector, 1 field per line
-// Write vector elements backwards into an output file
+// -Read from text file into vector, 1 string element per line
+// -Write vector elements 
+// -Display each vector element, from highest to lowest index
+// -#TODO Deletes all vector elements with pop_back()
+// -#TODO Uses global namespace infile, so functions share ifstream
 //------------------------------------------------------------------------------
 #include <fstream>
 #include <iostream>
@@ -15,6 +18,7 @@ using namespace std;
 // file metadata
 //------------------------------------------------------------------------------
 namespace infile {
+
     const string INPUT_FILENAME = "ex12_data.csv";
     constexpr int INPUT_FILE_ERROR = 1;
     ifstream input_file;
@@ -52,7 +56,7 @@ int main() {
 // -exits application on file open error
 //------------------------------------------------------------------------------
 void open_input_file(const string& filename) {
-    // open file for reading
+
     infile::input_file.open(filename);
 
     if (!infile::input_file.is_open()) {
@@ -68,11 +72,11 @@ void open_input_file(const string& filename) {
 //------------------------------------------------------------------------------
 void read_input_file(vector<string>& v) {
 
-    string input_line;
-
     while (infile::input_file.good()) {
 
+        string input_line;
         getline(infile::input_file, input_line);
+
         v.push_back(input_line);
     }
 }
