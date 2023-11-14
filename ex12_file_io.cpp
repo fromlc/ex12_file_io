@@ -25,20 +25,13 @@ using namespace std;
 //------------------------------------------------------------------------------
 // file metadata
 //------------------------------------------------------------------------------
-namespace infile {
+namespace f {
     const string INPUT_FILENAME = "ex12_data.csv";
     ifstream input_file;
-}
 
-namespace outfile {
     const string OUTPUT_FILENAME = "ex12_output.txt";
     ofstream output_file;
-}
 
-//------------------------------------------------------------------------------
-// error return codes
-//------------------------------------------------------------------------------
-namespace error {
     constexpr int INPUT_FILE_ERROR = 1;
     constexpr int OUTPUT_FILE_ERROR = 2;
 }
@@ -62,7 +55,7 @@ int main() {
     read_input_file(vs);
 
     // be sure to close the file!
-    infile::input_file.close();
+    f::input_file.close();
 
     display_file_data(vs);
 
@@ -76,12 +69,12 @@ int main() {
 //------------------------------------------------------------------------------
 void open_input_file() {
 
-    infile::input_file.open(infile::INPUT_FILENAME);
+    f::input_file.open(f::INPUT_FILENAME);
 
-    if (!infile::input_file.is_open()) {
+    if (!f::input_file.is_open()) {
 
-        cerr << "Could not open input file: " << infile::INPUT_FILENAME << ".\n";
-        exit(error::INPUT_FILE_ERROR);
+        cerr << "Could not open input file: " << f::INPUT_FILENAME << ".\n";
+        exit(f::INPUT_FILE_ERROR);
     }
 }
 
@@ -91,10 +84,10 @@ void open_input_file() {
 //------------------------------------------------------------------------------
 void read_input_file(vector<string>& v) {
 
-    while (infile::input_file.good()) {
+    while (f::input_file.good()) {
 
         string input_line;
-        getline(infile::input_file, input_line);
+        getline(f::input_file, input_line);
 
 #ifdef _LCDEBUG
         cout << "read from file: " << input_line << '\n';
