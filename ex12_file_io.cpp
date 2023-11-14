@@ -46,7 +46,7 @@ namespace error {
 //------------------------------------------------------------------------------
 // local functions
 //------------------------------------------------------------------------------
-void open_input_file(const string&);
+void open_input_file();
 void read_input_file(vector<string>&);
 void display_file_data(vector<string>&); // #TODO fix data loss
 
@@ -55,7 +55,7 @@ void display_file_data(vector<string>&); // #TODO fix data loss
 //------------------------------------------------------------------------------
 int main() {
 
-    open_input_file(infile::INPUT_FILENAME);
+    open_input_file();
 
     // read file data into vector one line at a time
     vector<string> vs;
@@ -74,13 +74,13 @@ int main() {
 // -uses global ifstream infile::input_file
 // -exits application on file open error
 //------------------------------------------------------------------------------
-void open_input_file(const string& filename) {
+void open_input_file() {
 
-    infile::input_file.open(filename);
+    infile::input_file.open(infile::INPUT_FILENAME);
 
     if (!infile::input_file.is_open()) {
 
-        cerr << "Could not open input file: " << filename << ".\n";
+        cerr << "Could not open input file: " << infile::INPUT_FILENAME << ".\n";
         exit(error::INPUT_FILE_ERROR);
     }
 }
