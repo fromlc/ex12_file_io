@@ -26,10 +26,21 @@ using namespace std;
 // file metadata
 //------------------------------------------------------------------------------
 namespace infile {
-
     const string INPUT_FILENAME = "ex12_data.csv";
-    constexpr int INPUT_FILE_ERROR = 1;
     ifstream input_file;
+}
+
+namespace outfile {
+    const string OUTPUT_FILENAME = "ex12_output.txt";
+    ofstream output_file;
+}
+
+//------------------------------------------------------------------------------
+// error return codes
+//------------------------------------------------------------------------------
+namespace error {
+    constexpr int INPUT_FILE_ERROR = 1;
+    constexpr int OUTPUT_FILE_ERROR = 2;
 }
 
 //------------------------------------------------------------------------------
@@ -37,7 +48,7 @@ namespace infile {
 //------------------------------------------------------------------------------
 void open_input_file(const string&);
 void read_input_file(vector<string>&);
-void display_file_data(vector<string>&);
+void display_file_data(vector<string>&); // #TODO fix data loss
 
 //------------------------------------------------------------------------------
 // entry point
@@ -70,7 +81,7 @@ void open_input_file(const string& filename) {
     if (!infile::input_file.is_open()) {
 
         cerr << "Could not open input file: " << filename << ".\n";
-        exit(infile::INPUT_FILE_ERROR);
+        exit(error::INPUT_FILE_ERROR);
     }
 }
 
@@ -97,8 +108,8 @@ void read_input_file(vector<string>& v) {
 // -display each element of passed vector, last index first
 // #TODO this function removes elements from passed vector!
 // #TODO prevent losing data
-//      either use call by value (VERY inefficient), OR
-//      use v.at(i) starting with i at highest index of v 
+//      BAD: use call by value (forces vector copy), or
+//      BETTER: use v.at(i), start with i set to highest index of v 
 //------------------------------------------------------------------------------
 void display_file_data(vector<string>& v) {
 
