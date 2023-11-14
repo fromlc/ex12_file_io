@@ -25,20 +25,13 @@ using namespace std;
 //------------------------------------------------------------------------------
 // file metadata
 //------------------------------------------------------------------------------
-namespace infile {
+namespace f {
     const string INPUT_FILENAME = "ex12_data.csv";
     ifstream input_file;
-}
 
-namespace outfile {
     const string OUTPUT_FILENAME = "ex12_output.txt";
     ofstream output_file;
-}
 
-//------------------------------------------------------------------------------
-// error return codes
-//------------------------------------------------------------------------------
-namespace error {
     constexpr int INPUT_FILE_ERROR = 1;
     constexpr int OUTPUT_FILE_ERROR = 2;
 }
@@ -49,6 +42,7 @@ namespace error {
 void open_input_file();
 void read_input_file(vector<string>&);
 void display_file_data(vector<string>&); // #TODO fix data loss
+void write_output_file(vector<string>&);
 
 //------------------------------------------------------------------------------
 // entry point
@@ -62,26 +56,30 @@ int main() {
     read_input_file(vs);
 
     // be sure to close the file!
-    infile::input_file.close();
+    f::input_file.close();
 
+    // display vector elements read from input file
     display_file_data(vs);
+
+    // write vector elements to output file
+    write_output_file(vs);
 
     return 0;
 }
 
 //------------------------------------------------------------------------------
 // -opens passed file name for reading
-// -uses global ifstream infile::input_file
+// -uses global ifstream f::input_file
 // -exits application on file open error
 //------------------------------------------------------------------------------
 void open_input_file() {
 
-    infile::input_file.open(infile::INPUT_FILENAME);
+    f::input_file.open(f::INPUT_FILENAME);
 
-    if (!infile::input_file.is_open()) {
+    if (!f::input_file.is_open()) {
 
-        cerr << "Could not open input file: " << infile::INPUT_FILENAME << ".\n";
-        exit(error::INPUT_FILE_ERROR);
+        cerr << "Could not open input file: " << f::INPUT_FILENAME << ".\n";
+        exit(f::INPUT_FILE_ERROR);
     }
 }
 
@@ -91,10 +89,10 @@ void open_input_file() {
 //------------------------------------------------------------------------------
 void read_input_file(vector<string>& v) {
 
-    while (infile::input_file.good()) {
+    while (f::input_file.good()) {
 
         string input_line;
-        getline(infile::input_file, input_line);
+        getline(f::input_file, input_line);
 
 #ifdef _LCDEBUG
         cout << "read from file: " << input_line << '\n';
@@ -113,11 +111,41 @@ void read_input_file(vector<string>& v) {
 //------------------------------------------------------------------------------
 void display_file_data(vector<string>& v) {
 
-    while (!v.empty()) {
+    for (int index = v.size() - 1; index >= 0; index--) {
 
-        cout << v.back() << '\n';
-        v.pop_back();
+        cout << v.at(index) << '\n';
     }
 
     cout << '\n';
+}
+
+//void display_file_data(vector<string>& v) {
+//
+//    while (!v.empty()) {
+//
+//        cout << v.back() << '\n';
+//        v.pop_back();
+//    }
+//
+//    cout << '\n';
+//}
+
+//------------------------------------------------------------------------------
+// write vector elements to text file
+//------------------------------------------------------------------------------
+void write_output_file(vector<string>& v) {
+
+    f::output_file.open(f::OUTPUT_FILENAME);
+
+    if (!f::output_file.is_open()) {
+
+        cerr << "Could not open output file: " << f::OUTPUT_FILENAME << ".\n";
+        exit(f::OUTPUT_FILE_ERROR);
+    }
+
+    for (string str : v) {
+        f::output_file << str + "\n";
+    }
+
+    f::output_file.close();
 }
