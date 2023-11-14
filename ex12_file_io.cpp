@@ -86,7 +86,7 @@ void read_input_file(vector<string>& v) {
         getline(infile::input_file, input_line);
 
 #ifdef _LCDEBUG
-        cout << input_line << '\n';
+        cout << "read from file: " << input_line << '\n';
 #endif
 
         v.push_back(input_line);
