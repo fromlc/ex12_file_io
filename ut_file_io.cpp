@@ -23,6 +23,7 @@ using namespace std;
 // file metadata
 //------------------------------------------------------------------------------
 namespace f {
+
     const string INPUT_FILENAME = "ex12_data.csv";
     ifstream input_file;
 
@@ -75,7 +76,7 @@ void read_input_file(vector<string>& v) {
     }
 
     // remove empty string element added after eof
-    if (v.size() > 0)
+    if (!v.empty())
         v.pop_back();
 
     // be sure to close the file!
