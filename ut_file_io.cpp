@@ -75,7 +75,8 @@ void read_input_file(vector<string>& v) {
     }
 
     // remove empty string element added after eof
-    v.pop_back();
+    if (v.size() > 0)
+        v.pop_back();
 
     // be sure to close the file!
     f::input_file.close();
