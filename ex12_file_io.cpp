@@ -98,6 +98,7 @@ void read_input_file(vector<string>& v) {
         cout << "read from file: " << input_line << '\n';
 #endif
 
+        // remove empty string element added by last getline()
         if (v.size() > 0)
             v.push_back(input_line);
     }
