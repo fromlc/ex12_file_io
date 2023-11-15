@@ -98,7 +98,8 @@ void read_input_file(vector<string>& v) {
         cout << "read from file: " << input_line << '\n';
 #endif
 
-        v.push_back(input_line);
+        if (v.size() > 0)
+            v.push_back(input_line);
     }
 }
 
